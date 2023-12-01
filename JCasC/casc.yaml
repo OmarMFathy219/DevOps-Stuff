@@ -1,0 +1,28 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: ${JENKINS_USER}
+          name: ${JENKINS_USER}
+          password: ${JENKINS_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:${JENKINS_USER}"
+        - "Overall/Read:authenticated"
+tool:
+  git:
+    installations:
+      - name: git
+        home: /usr/local/bin/git
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: ${GITHUB_CREDENTIALS_ID}
+              username: ${GITHUB_USERNAME}
+              password: ${GITHUB_PASSWORD}
